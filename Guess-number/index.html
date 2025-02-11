@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра Угадай число</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="images/icon.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <h1>Игра "Угадай число"</h1>
+        <div id="inputRange" class="input-range">
+            <div class="min">
+                <label for="min">Минимальное значение:</label><br>
+                <input type="number" id="min" required><br>
+            </div>
+            <div class="4">
+                <label for="max">Максимальное значение:</label><br>
+                <input type="number" id="max" required><br>
+            </div>
+            
+            
+            <button id="startButton">Начать игру</button>
+        </div>
+
+        <div id="game" class="game" style="display:none;">
+            <p>Я загадал число от <span id="minRange"></span> до <span id="maxRange"></span>.</p>
+            <p>У вас <span id="attemptsLeft"></span> попыток.</p>
+            <input type="number" id="guess" placeholder="Ваше предположение" required>
+            <button id="checkButton">Проверить</button>
+            <p id="result"></p>
+            <button id="restartButton" style="display:none;">Перезапустить игру</button>
+        </div>
+    </div>
+    <script src="scripts/index.js"></script>
+</body>
+</html>
