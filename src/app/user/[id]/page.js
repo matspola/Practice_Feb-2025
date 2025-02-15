@@ -1,14 +1,16 @@
 import React from 'react';
+import Link from 'next/link';
+
 
 const InfoUser = async ({ params }) => {
-  const { id } = params;
+  const { id } =await params;
   const response = await fetch(`https://dummyjson.com/users/${id}`);
   const user = await response.json();
 
   if (!user) return <div className="text-gray-500 text-center">Загрузка...</div>;
 
   return (
-    <div className="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg mt-8">
+    <div className="max-w-lg mx-auto h-auto p-4 bg-white shadow-lg rounded-lg mt-8">
       <h1 className="text-2xl font-bold text-gray-800 mb-4">{user.name}</h1>
       <div className="flex justify-center mb-4">
         <img 
@@ -39,6 +41,11 @@ const InfoUser = async ({ params }) => {
         <p><strong>User Agent:</strong> {user.userAgent}</p>
         <p><strong>Crypto:</strong> {user.crypto.coin}, {user.crypto.wallet}, {user.crypto.network}</p>
         <p><strong>Role:</strong> {user.role}</p>
+        <p className= 'my-4'>
+          <Link href="/" className="bg-gray-200 hover:bg-gray-300 py-2 px-2 rounded">
+            Быстро назад я сказала!
+          </Link>
+        </p>
       </div>
     </div>
   );
