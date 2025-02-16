@@ -8,7 +8,10 @@ export async function GET(request) {
         const response = await fetch(`https://dummyjson.com/users?search=${search}&limit=${limit}&skip=${skip}`);
         
         if (!response.ok) {
-            return new Response(JSON.stringify({ error: 'Ошибка HTTP' }), { status: response.status });
+            return new Response(JSON.stringify({ 
+                error: 'Ошибка HTTP' }), 
+                { status: response.status }
+            );
         }
         
         const data = await response.json();

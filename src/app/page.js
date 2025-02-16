@@ -63,7 +63,7 @@ const Home = () => {
         />
       </center>
 
-      <div className=" flex flex-wrap justify-center mt-4r"> {/* Используем grid и grid-cols-5 для 5 карточек в ряд */}
+      <div className=" flex flex-wrap justify-center mt-4r"> 
           {users.map(user => (
             <Card user={user} key={user.id} />
           ))}

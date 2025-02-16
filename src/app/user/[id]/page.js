@@ -1,21 +1,36 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+const InfoUser = ({ params }) => {
+  const id = React.use(params).id;
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
-const InfoUser = async ({ params }) => {
-  const { id } = await params;
-  let user;
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/api/user/${id}`);
+        
+        if (!response.ok) {
+          throw new Error(`Ошибка HTTP: ${response.status}`);
+        }
 
-  try {
-    const response = await fetch(`/api/user/${id}`);
-    
-    if (!response.ok) {
-      throw new Error(`Ошибка HTTP: ${response.status}`);
-    }
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        console.error("Ошибка при загрузке данных пользователя:", error);
+        setError(error.message); 
+      } 
+    };
 
-    user = await response.json();
-  } catch (error) {
-    console.error("Ошибка при загрузке данных пользователя:", error);
+    fetchUserData();
+  }, [id]); // Зависимость от id
+
+
+  if (!user) {
+    return <div>Загрузка...</div>; // Если пользователь не найден
   }
 
   return (
@@ -24,7 +39,7 @@ const InfoUser = async ({ params }) => {
       <div className="flex justify-center mb-4">
         <img 
           src={user.image} 
-          alt={user.name} 
+          alt={user.firstName} 
           className="w-24 h-24 rounded-full border border-gray-300 object-cover"
         />
       </div>
@@ -50,7 +65,7 @@ const InfoUser = async ({ params }) => {
         <p><strong>User Agent:</strong> {user.userAgent}</p>
         <p><strong>Crypto:</strong> {user.crypto.coin}, {user.crypto.wallet}, {user.crypto.network}</p>
         <p><strong>Role:</strong> {user.role}</p>
-        <p className= 'my-4'>
+        <p className='my-4'>
           <Link href="/" className="bg-gray-200 hover:bg-gray-300 py-2 px-2 rounded">
             Быстро назад я сказала!
           </Link>

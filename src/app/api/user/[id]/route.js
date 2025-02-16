@@ -2,7 +2,7 @@ export async function GET(
     request, 
     {params}
 ) {
-    const { id } = params;
+    const { id } = await params;
     try {
         const response = await fetch(`https://dummyjson.com/users/${id}`);
         
