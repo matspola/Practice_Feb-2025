@@ -3,15 +3,24 @@ import Link from 'next/link';
 
 
 const InfoUser = async ({ params }) => {
-  const { id } =await params;
-  const response = await fetch(`https://dummyjson.com/users/${id}`);
-  const user = await response.json();
+  const { id } = await params;
+  let user;
 
-  if (!user) return <div className="text-gray-500 text-center">Загрузка...</div>;
+  try {
+    const response = await fetch(`/api/user/${id}`);
+    
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+
+    user = await response.json();
+  } catch (error) {
+    console.error("Ошибка при загрузке данных пользователя:", error);
+  }
 
   return (
     <div className="max-w-lg mx-auto h-auto p-4 bg-white shadow-lg rounded-lg mt-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">{user.name}</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-4">{user.firstName}</h1>
       <div className="flex justify-center mb-4">
         <img 
           src={user.image} 

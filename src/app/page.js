@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`https://dummyjson.com/users/search?q=${search}&limit=${countPage}&skip=${(currentPage-1) * countPage}`);
+        const response = await fetch(`/api/all?search=${search}&limit=${countPage}&skip=${(currentPage - 1) * countPage}`);
       if (!response.ok) {
         throw new Error (`Ошибка HTTP: ${response.status}`)
       }  
